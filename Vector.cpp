@@ -290,17 +290,14 @@ bool &operator==(const Vector &vector1, const Vector &vector2) {
     return ans;
 }
 
-Vector &Vector::operator=(Vector &vector) {
+Vector &Vector::operator=(Vector &&vector) {
     if (*this == vector) {
         return *this;
     }
     this->len = vector.len;
     delete [] this->p_arr;
-    this->p_arr = new char [this->len];
-    for (int i = 0; i < this->len; ++i) {
-        p_arr[i] = vector.p_arr[i];
-    }
-    delete &vector;
-//        delete [] vector.p_arr;
+    this->p_arr = vector.p_arr;
+    vector.p_arr = nullptr;
+    vector.len = 0;
     return *this;
 }

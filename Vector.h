@@ -20,12 +20,19 @@ public:
     explicit Vector(); // Конструкторы
     Vector(int len);
     Vector(string str);
-    Vector(const Vector &vector): len(vector.len), p_arr(vector.p_arr){};
 
-    [[noreturn]] Vector(Vector &vector): len(vector.len), p_arr(vector.p_arr){
-        delete &vector;
-//        delete [] vector.p_arr;
+    Vector(const Vector &vector): len(vector.len), p_arr(nullptr){
+        this->p_arr = new char [this->len];
+        for (int i = 0; i < this->len; ++i) {
+            this->p_arr[i] = vector.p_arr[i];
+        }
     };
+
+    Vector(Vector &&vector): len(vector.len), p_arr(vector.p_arr){
+        vector.len = 0;
+        vector.p_arr = nullptr;
+    };
+
     ~Vector();
 
     void upgrade(int new_len); // Методы для тестирования
@@ -40,7 +47,7 @@ public:
     friend Vector &operator|(const Vector &vector1, const Vector &vector2);
     friend Vector &operator&(const Vector &vector1, const Vector &vector2);
     Vector &operator=(const Vector &vector);
-    Vector &operator=(Vector &vector);
+    Vector &operator=(Vector &&vector);
     Vector &operator~();
 
     Vector &operator<<(char symbol); // Перегрузка операторов потокового добавления элемента того же класса или символа
