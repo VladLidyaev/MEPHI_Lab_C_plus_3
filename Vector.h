@@ -11,9 +11,9 @@ private:
     int len; // Аргументы
     char *p_arr{};
     static bool check(char symbol);
-    char _or_(char symbol1, char symbol2); // Логические функции
-    char _and_(char symbol1, char symbol2);
-    char _no_(char symbol);
+    static char _or_(char symbol1, char symbol2); // Логические функции
+    static char _and_(char symbol1, char symbol2);
+    static char _no_(char symbol);
 
 public:
 
