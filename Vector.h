@@ -21,6 +21,11 @@ public:
     Vector(int len);
     Vector(string str);
     Vector(const Vector &vector): len(vector.len), p_arr(vector.p_arr){};
+
+    [[noreturn]] Vector(Vector &vector): len(vector.len), p_arr(vector.p_arr){
+        delete &vector;
+//        delete [] vector.p_arr;
+    };
     ~Vector();
 
     void upgrade(int new_len); // Методы для тестирования
@@ -35,6 +40,7 @@ public:
     friend Vector &operator|(const Vector &vector1, const Vector &vector2);
     friend Vector &operator&(const Vector &vector1, const Vector &vector2);
     Vector &operator=(const Vector &vector);
+    Vector &operator=(Vector &vector);
     Vector &operator~();
 
     Vector &operator<<(char symbol); // Перегрузка операторов потокового добавления элемента того же класса или символа
