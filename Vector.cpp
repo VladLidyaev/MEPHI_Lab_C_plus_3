@@ -235,3 +235,57 @@ Vector &Vector::operator=(const Vector &vector) {
     }
     return *this;
 }
+
+Vector &operator|(const Vector &vector1, const Vector &vector2) {
+    auto new_vector = new Vector();
+    if (vector1.len > vector2.len){
+        for (int i = 0; i < vector2.len; ++i) {
+            *new_vector << vector1._or_(vector1.p_arr[i], vector2.p_arr[i]);
+        }
+        for (int i = vector2.len; i < vector1.len; ++i) {
+            *new_vector << vector1._or_(vector1.p_arr[i],'X');
+        }
+    }else {
+        for (int i = 0; i < vector1.len; ++i) {
+            *new_vector << vector1._or_(vector1.p_arr[i], vector2.p_arr[i]);
+        }
+        for (int i = vector1.len; i < vector2.len; ++i) {
+            *new_vector << vector1._or_(vector2.p_arr[i],'X');
+        }
+    }
+    return *new_vector;
+}
+
+Vector &operator&(const Vector &vector1, const Vector &vector2) {
+    auto new_vector = new Vector();
+    if (vector1.len > vector2.len){
+        for (int i = 0; i < vector2.len; ++i) {
+            *new_vector << vector1._and_(vector1.p_arr[i], vector2.p_arr[i]);
+        }
+        for (int i = vector2.len; i < vector1.len; ++i) {
+            *new_vector << vector1._and_(vector1.p_arr[i],'X');
+        }
+    }else {
+        for (int i = 0; i < vector1.len; ++i) {
+            *new_vector << vector1._and_(vector1.p_arr[i], vector2.p_arr[i]);
+        }
+        for (int i = vector1.len; i < vector2.len; ++i) {
+            *new_vector << vector1._and_(vector2.p_arr[i],'X');
+        }
+    }
+    return *new_vector;
+}
+
+bool &operator==(const Vector &vector1, const Vector &vector2) {
+    bool ans = true;
+    if (vector1.len == vector2.len){
+        for (int i = 0; i < vector2.len; ++i) {
+            if (vector1.p_arr[i] != vector2.p_arr[i]){
+                ans = false;
+            }
+        }
+    }else {
+        ans = false;
+    }
+    return ans;
+}
